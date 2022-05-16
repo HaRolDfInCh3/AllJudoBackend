@@ -2,6 +2,7 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,13 @@ public ResponseEntity<Champion_admin_externeDto> getChampion_admin_externe( @Pat
 }
 @GetMapping("/getAllChampion_admin_externes")
 public ResponseEntity<List<Champion_admin_externeDto>> getChampion_admin_externe( ) {
-	List<Champion_admin_externe> lab=cAERepo.findAll();
+	List<Champion_admin_externe> lab=cAERepo.findAll(Sort.by(Sort.Direction.ASC, "id"));
+	List<Champion_admin_externeDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<Champion_admin_externeDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getAllChampion_admin_externesDesc")
+public ResponseEntity<List<Champion_admin_externeDto>> getChampion_admin_externeDesc( ) {
+	List<Champion_admin_externe> lab=cAERepo.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	List<Champion_admin_externeDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<Champion_admin_externeDto>>(ldto,HttpStatus.OK);
 }

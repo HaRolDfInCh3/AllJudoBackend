@@ -48,6 +48,12 @@ public ResponseEntity<List<EvenementDto>> getEvenement( ) {
 	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getAllInvalidesEvenements")
+public ResponseEntity<List<EvenementDto>> getInvalidesEvenement( ) {
+	List<Evenement> lab=objetRepo.findAllNonValide();
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
 @PostMapping("/addEvenement")
 public ResponseEntity<EvenementDto> addEvenement(@RequestBody EvenementDto dto) {
 	if(!objetRepo.existsById(dto.getId())) {

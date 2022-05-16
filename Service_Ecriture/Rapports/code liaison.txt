@@ -1,0 +1,94 @@
+AbonnementRepository srcRepo;
+	ChampionRepository destRepo;
+	public Liaison(AbonnementRepository s, ChampionRepository d) {
+		this.srcRepo = s;
+		this.destRepo = d;
+	}
+	public void creer() {
+		List<Abonnement>liste=srcRepo.findAll();
+		for(Abonnement element:liste) {
+			if(destRepo.existsById(element.getChampion())) {
+				Champion c=destRepo.findById(element.getChampion());
+				element.setChampion2(c);
+			}else{
+				element.setChampion2(null);
+			}
+			srcRepo.save(element);
+		}
+		System.out.println("Creation de liens entre Abonnement et Champion finie ...");
+	}
+
+// -------------------------------------------  partie 2
+
+AbonnementRepository srcRepo;
+	UserRepository destRepo;
+	public Liaison(AbonnementRepository s, UserRepository d) {
+		this.srcRepo = s;
+		this.destRepo = d;
+	}
+	public void creer() {
+		List<Abonnement>liste=srcRepo.findAll();
+		for(Abonnement element:liste) {
+			if(destRepo.existsById(element.getUser())) {
+				User c=destRepo.findById(element.getUser());
+				element.setUser2(c);
+			}else{
+				element.setUser2(null);
+			}
+			srcRepo.save(element);
+		}
+		System.out.println("Creation de liens entre Abonnement et User finie ...");
+	}
+
+// -------------------------------------------  partie champion_popularite1
+
+Champion_popularite1Repository srcRepo;
+	ChampionRepository destRepo;
+	public Liaison(Champion_popularite1Repository s, ChampionRepository d) {
+		this.srcRepo = s;
+		this.destRepo = d;
+	}
+	public void creer() {
+		int trouves=0;
+		int nontrouves=0;
+		List<Champion_popularite1>liste=srcRepo.findAll();
+		for(Champion_popularite1 element:liste) {
+			if(destRepo.existsById(element.getChampion_id())) {
+				Champion c=destRepo.findById(element.getChampion_id());
+				element.setChampion2(c);
+				trouves++;
+			}else{
+				element.setChampion2(null);
+				nontrouves++;
+			}
+			srcRepo.save(element);
+		}
+		System.out.println("Creation de liens entre Champion_popularite1 et Champion finie trouves: "+trouves+" non trouves: "+nontrouves+"...");
+	}
+
+// -------------------------------------------  partie champion_popularite
+
+Champion_populariteRepository srcRepo;
+	ChampionRepository destRepo;
+	public Liaison(Champion_populariteRepository s, ChampionRepository d) {
+		this.srcRepo = s;
+		this.destRepo = d;
+	}
+	public void creer() {
+		int trouves=0;
+		int nontrouves=0;
+		List<Champion_popularite>liste=srcRepo.findAll();
+		for(Champion_popularite element:liste) {
+			if(destRepo.existsById(element.getChampion_id())) {
+				Champion c=destRepo.findById(element.getChampion_id());
+				element.setChampion2(c);
+				trouves++;
+			}else{
+				element.setChampion2(null);
+				nontrouves++;
+			}
+			srcRepo.save(element);
+		}
+		System.out.println("Creation de liens entre Champion_popularite et Champion finie trouves: "+trouves+" non trouves: "+nontrouves+"...");
+	}
+

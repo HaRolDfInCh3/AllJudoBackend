@@ -22,6 +22,7 @@ public class ChampionDto {
 	private Date dateNaissance2;
 	private String dateChangementNat;
 	private String dateNaissance;
+	
 	private String lieuNaissance;
 	private String grade;
 	private String clubs;

@@ -2,6 +2,8 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,7 +73,9 @@ public ResponseEntity<List<EvenementDto>> getEvenementDesc( ) {
 public ResponseEntity<EvenementDto> addEvenement(@RequestBody EvenementDto dto) {
 	System.out.println("Recu: "+dto);
 	//on suppose que les elements referencés existent deja
-	if(!objetRepo.existsById(dto.getId())) {
+	Page<Evenement> c2 =objetRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
 		int evcatevid=dto.getCategorieID();
 		int evcatageid=dto.getCategorieageID();
 		String paysid=dto.getPaysID();
@@ -88,11 +92,10 @@ public ResponseEntity<EvenementDto> addEvenement(@RequestBody EvenementDto dto) 
 			Evcategorieevenement ece=evcatevRepo.findById(evcatevid);
 			ab.setEvcategorieevenement2(ece);
 		}
-		
+		ab.setId(max+1);
 		objetRepo.save(ab);
 		return new ResponseEntity<EvenementDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<EvenementDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updateEvenement/{id}")
 public ResponseEntity<EvenementDto> updateEvenement(@PathVariable int id,@RequestBody EvenementDto dto) {

@@ -2,6 +2,8 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,7 +67,9 @@ public ResponseEntity<List<NewsDto>> getNews( ) {
 @PostMapping("/addNews")
 public ResponseEntity<NewsDto> addNews(@RequestBody NewsDto dto) {
 	System.out.println("recu: "+dto);
-	if(!objetRepo.existsById(dto.getId())) {
+	Page<News> c2 =objetRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);	
 		//on suppose que les objets references existent deja
 		News ab=mapper.dtoToObject(dto);
 		int ncat=ab.getCategorieID();
@@ -86,11 +90,10 @@ public ResponseEntity<NewsDto> addNews(@RequestBody NewsDto dto) {
 			System.out.println("Admin trouvé");
 			ab.setAdmin2(admin);
 		}
+		ab.setId(max+1);
 		System.out.println(ab);
 		objetRepo.save(ab);
 		return new ResponseEntity<NewsDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<NewsDto>(HttpStatus.CONFLICT);
 }
 @PutMapping("/updateNews/{id}")
 public ResponseEntity<NewsDto> updateNews(@PathVariable int id,@RequestBody NewsDto dto) {

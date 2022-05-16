@@ -2,6 +2,7 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,7 +46,7 @@ public ResponseEntity<CommentaireDto> getCommentaire( @PathVariable int id) {
 }
 @GetMapping("/getAllCommentaires")
 public ResponseEntity<List<CommentaireDto>> getCommentaire( ) {
-	List<Commentaire> lab=commentaireRepo.findAll();
+	List<Commentaire> lab=commentaireRepo.findAll(Sort.by(Sort.Direction.DESC, "ID"));
 	List<CommentaireDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<CommentaireDto>>(ldto,HttpStatus.OK);
 }

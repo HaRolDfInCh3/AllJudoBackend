@@ -15,5 +15,7 @@ public class GalerieDto {
 	public String photographe;
 	public int evenement_id;
 	public String admin;
+	private EvenementDto evenement2;
+	private AdminDto admin2;
 	public String lien;
 }

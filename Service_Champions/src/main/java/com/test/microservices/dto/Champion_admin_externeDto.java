@@ -2,6 +2,8 @@ package com.test.microservices.dto;
 
 
 import com.test.microservices.enums.SituationAdminExterne;
+import com.test.microservices.pojos.Champion;
+import com.test.microservices.pojos.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,6 +19,8 @@ public class Champion_admin_externeDto {
 	public String video;
 	public int user_id;
 	public int champion_id;
+	private Champion champion2;
+	private User user2;
 	public String ip_creation;
 	public java.util.Date date_mod2;
 	public java.util.Date date_creation2;

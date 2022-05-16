@@ -12,6 +12,7 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import com.example.ApiDoublons.entities.Champion;
 import com.example.ApiDoublons.repositories.ChampionRepository;
 import com.example.ApiDoublons.services.Singleton;
+import com.example.ApiDoublons.services.StringSimilarity;
 
 
 @SpringBootApplication
@@ -28,7 +29,7 @@ public class ApiDoublonsApplication implements CommandLineRunner{
 		List<Champion>liste=repo.findAll();
 		Singleton.getInstance().setLc(liste);
 		System.out.println("liste des champions recuperée !");
-		//http://localhost:1000/API-DOUBLONS/get_Similars/10549
+		//StringSimilarity.printSimilarity("Ayrton Gonsallo", "Ayrton Gonzalo");
 		
 	}
 
