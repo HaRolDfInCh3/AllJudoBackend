@@ -32,6 +32,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\Li
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\PaysDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\ImageRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\Article_imgController.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\enums\TypeOffre.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\enums\StatusBanniere.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\PariDtoToPari.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\ChampionAdminExternePalmaresRepository.java

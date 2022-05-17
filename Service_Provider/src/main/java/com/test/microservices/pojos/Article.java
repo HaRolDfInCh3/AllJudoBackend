@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import com.test.microservices.enums.TypeOffre;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -27,7 +29,7 @@ public class Article {
 	public String descr;
 	public String image_pre;
 	public String video;
-	public String type;
+	public TypeOffre type;
 	public String code_paypal;
 	public Double old_prix;
 }

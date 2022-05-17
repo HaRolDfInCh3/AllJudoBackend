@@ -2,6 +2,7 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -54,7 +55,7 @@ public ResponseEntity<List<Bannieres_par_tailleDto>> rechercheBannieres_par_tail
 }
 @GetMapping("/getAllBannieres_par_tailles")
 public ResponseEntity<List<Bannieres_par_tailleDto>> getBannieres_par_taille( ) {
-	List<Bannieres_par_taille> lab=bannieres_par_tailleRepo.findAll();
+	List<Bannieres_par_taille> lab=bannieres_par_tailleRepo.findAll( Sort.by(Sort.Direction.DESC, "ID"));
 	List<Bannieres_par_tailleDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<Bannieres_par_tailleDto>>(ldto,HttpStatus.OK);
 }

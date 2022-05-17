@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,21 +55,27 @@ public ResponseEntity<List<ArticleDto>> getArticle( ) {
 }
 @PostMapping("/addArticle")
 public ResponseEntity<ArticleDto> addArticle(@RequestBody ArticleDto dto) {
-	if(!articleRepo.existsById(dto.getId())) {
+	Page<Article> c2 =articleRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "id")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
 		Article ab=mapper.dtoToObject(dto);
+		
+		ab.setId(max+1);
+		dto.setId(max+1);
 		articleRepo.save(ab);
 		return new ResponseEntity<ArticleDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<ArticleDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updateArticle/{id}")
 public ResponseEntity<ArticleDto> updateArticle(@PathVariable int id,@RequestBody ArticleDto dto) {
-	if(articleRepo.existsById(id)) {
+	String idMongo=articleRepo.findById(id).getIdMongo();
+	
 		Article ab=mapper.dtoToObject(dto);
+		ab.setIdMongo(idMongo);
+		articleRepo.deleteById(idMongo);
 		articleRepo.save(ab);
 		return new ResponseEntity<ArticleDto>(dto,HttpStatus.OK);
-	}
-	return new ResponseEntity<ArticleDto>(HttpStatus.NOT_FOUND);
+	
 }
 @DeleteMapping("/deleteArticle/{id}")
 public ResponseEntity<ArticleDto> deleteArticle(@PathVariable int id) {

@@ -50,6 +50,12 @@ public ResponseEntity<List<CommentaireDto>> getCommentaire( ) {
 	List<CommentaireDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<CommentaireDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getLastCommentaires")
+public ResponseEntity<List<CommentaireDto>> getLastCommentaire( ) {
+	List<Commentaire> lab=commentaireRepo.findAll(Sort.by(Sort.Direction.DESC, "date"));
+	List<CommentaireDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<CommentaireDto>>(ldto,HttpStatus.OK);
+}
 @PostMapping("/addCommentaire")
 public ResponseEntity<CommentaireDto> addCommentaire(@RequestBody CommentaireDto dto) {
 	if(!commentaireRepo.existsById(dto.getId())) {

@@ -2,6 +2,8 @@ package com.test.microservices.dto;
 
 
 
+import com.test.microservices.enums.TypeOffre;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,7 +21,7 @@ public class ArticleDto {
 	public String descr;
 	public String image_pre;
 	public String video;
-	public String type;
+	public TypeOffre type;
 	public String code_paypal;
 	public Double old_prix;
 }

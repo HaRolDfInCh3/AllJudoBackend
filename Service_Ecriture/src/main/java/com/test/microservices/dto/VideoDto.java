@@ -23,6 +23,10 @@ public class VideoDto {
 	public VideoCategorie categorie;
 	public String vignette;
 	public Boolean a_la_une;
+	private ChampionDto champion;
+	private TechniqueDto technique1;
+	private TechniqueDto techniqueDto2;
+	private EvenementDto evenement;
 	public int champion_id;
 	public int technique_id;
 	public int technique2_id;

@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.test.microservices.dto.Bannieres_par_tailleDto;
 import com.test.microservices.mappers.Bannieres_par_tailleDtoToBannieres_par_taille;
 import com.test.microservices.pojos.Bannieres_par_taille;
+import com.test.microservices.pojos.Video;
 import com.test.microservices.repositories.Bannieres_par_tailleRepository;
 
 @RestController
@@ -60,21 +64,24 @@ public ResponseEntity<List<Bannieres_par_tailleDto>> getBannieres_par_taille( ) 
 }
 @PostMapping("/addBannieres_par_taille")
 public ResponseEntity<Bannieres_par_tailleDto> addBannieres_par_taille(@RequestBody Bannieres_par_tailleDto dto) {
-	if(!bannieres_par_tailleRepo.existsById(dto.getId())) {
+	Page<Bannieres_par_taille> c2 =bannieres_par_tailleRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
 		Bannieres_par_taille ab=mapper.dtoToObject(dto);
+		ab.setId(max+1);
+		dto.setId(max+1);
 		bannieres_par_tailleRepo.save(ab);
 		return new ResponseEntity<Bannieres_par_tailleDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<Bannieres_par_tailleDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updateBannieres_par_taille/{id}")
 public ResponseEntity<Bannieres_par_tailleDto> updateBannieres_par_taille(@PathVariable int id,@RequestBody Bannieres_par_tailleDto dto) {
-	if(bannieres_par_tailleRepo.existsById(id)) {
+	String idMongo=bannieres_par_tailleRepo.findById(id).getIdMongo();
 		Bannieres_par_taille ab=mapper.dtoToObject(dto);
+		bannieres_par_tailleRepo.deleteById(idMongo);
+		ab.setIdMongo(idMongo);
 		bannieres_par_tailleRepo.save(ab);
 		return new ResponseEntity<Bannieres_par_tailleDto>(dto,HttpStatus.OK);
-	}
-	return new ResponseEntity<Bannieres_par_tailleDto>(HttpStatus.NOT_FOUND);
 }
 @DeleteMapping("/deleteBannieres_par_taille/{id}")
 public ResponseEntity<Bannieres_par_tailleDto> deleteBannieres_par_taille(@PathVariable int id) {

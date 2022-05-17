@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.test.microservices.dto.TechniqueDto;
 import com.test.microservices.mappers.TechniqueDtoToTechnique;
+import com.test.microservices.pojos.Galerie;
 import com.test.microservices.pojos.Technique;
 import com.test.microservices.repositories.TechniqueRepository;
 
@@ -52,21 +56,24 @@ public ResponseEntity<List<TechniqueDto>> getTechnique( ) {
 }
 @PostMapping("/addTechnique")
 public ResponseEntity<TechniqueDto> addTechnique(@RequestBody TechniqueDto dto) {
-	if(!tsRepo.existsById(dto.getId())) {
+	Page<Technique> c2 =tsRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
 		Technique ab=mapper.dtoToObject(dto);
+		ab.setId(max+1);
+		dto.setId(max+1);
 		tsRepo.save(ab);
 		return new ResponseEntity<TechniqueDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<TechniqueDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updateTechnique/{id}")
 public ResponseEntity<TechniqueDto> updateTechnique(@PathVariable int id,@RequestBody TechniqueDto dto) {
-	if(tsRepo.existsById(id)) {
+	String idMongo=tsRepo.findById(id).getIdMongo();
+	
+	tsRepo.deleteById(idMongo);
 		Technique ab=mapper.dtoToObject(dto);
 		tsRepo.save(ab);
 		return new ResponseEntity<TechniqueDto>(dto,HttpStatus.OK);
-	}
-	return new ResponseEntity<TechniqueDto>(HttpStatus.NOT_FOUND);
 }
 @DeleteMapping("/deleteTechnique/{id}")
 public ResponseEntity<TechniqueDto> deleteTechnique(@PathVariable int id) {

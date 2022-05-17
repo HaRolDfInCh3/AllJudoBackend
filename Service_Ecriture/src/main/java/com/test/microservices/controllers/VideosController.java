@@ -92,9 +92,8 @@ public ResponseEntity<VideoDto> addVideo(@RequestBody VideoDto ab) {
 		
 		
 		v.setId(max+1);
+		ab.setId(max+1);
 		videoRepo.save(v);
-		System.out.println("videoDto : "+ab);
-		System.out.println("video : "+v);
 		return new ResponseEntity<VideoDto>(ab,HttpStatus.CREATED);
 	
 }
