@@ -19,7 +19,8 @@ public class Pari_resultat {
 	@Field("id")
 	public int id;
 	public int points;
-	public int pari_id;
+	@Field("pari_id")
+	public int pari;
 	public int user_id;
 	@DocumentReference
 	private Pari pari2;

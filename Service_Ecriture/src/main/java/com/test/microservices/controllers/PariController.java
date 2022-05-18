@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,16 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.test.microservices.dto.PariDto;
 import com.test.microservices.mappers.PariDtoToPari;
+import com.test.microservices.pojos.Evenement;
 import com.test.microservices.pojos.Pari;
+import com.test.microservices.repositories.EvenementRepository;
 import com.test.microservices.repositories.PariRepository;
 
 @RestController
 public class PariController {
 	PariRepository pariRepo;
 	PariDtoToPari mapper;
-	public PariController(PariRepository repo,PariDtoToPari m) {
+	EvenementRepository eRepo;
+	public PariController(EvenementRepository eR,PariRepository repo,PariDtoToPari m) {
 		this.pariRepo=repo;
 		this.mapper=m;
+		this.eRepo=eR;
 		// TODO Auto-generated constructor stub
 	}
 @GetMapping("/getPariByIdMongo/{id}")
@@ -52,21 +59,36 @@ public ResponseEntity<List<PariDto>> getPari( ) {
 }
 @PostMapping("/addPari")
 public ResponseEntity<PariDto> addPari(@RequestBody PariDto dto) {
-	if(!pariRepo.existsById(dto.getId())) {
-		Pari ab=mapper.dtoToObject(dto);
+	int evid=dto.getEvenement_id();
+	Page<Pari> c2 =pariRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "id")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
+	Pari ab=mapper.dtoToObject(dto);
+	if(eRepo.existsById(evid)) {
+		Evenement e=eRepo.findById(evid);
+		ab.setEvenement2(e);
+		
+	}
+	ab.setId(max+1);
+		dto=mapper.objectToDto(ab);
 		pariRepo.save(ab);
 		return new ResponseEntity<PariDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<PariDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updatePari/{id}")
 public ResponseEntity<PariDto> updatePari(@PathVariable int id,@RequestBody PariDto dto) {
-	if(pariRepo.existsById(id)) {
+	String idMongo=pariRepo.findById(id).getIdMongo();
 		Pari ab=mapper.dtoToObject(dto);
+		int evid=dto.getEvenement_id();
+		if(eRepo.existsById(evid)) {
+			Evenement e=eRepo.findById(evid);
+			ab.setEvenement2(e);
+		}
+		pariRepo.deleteById(idMongo);
+		ab.setIdMongo(idMongo);
 		pariRepo.save(ab);
 		return new ResponseEntity<PariDto>(dto,HttpStatus.OK);
-	}
-	return new ResponseEntity<PariDto>(HttpStatus.NOT_FOUND);
+	
 }
 @DeleteMapping("/deletePari/{id}")
 public ResponseEntity<PariDto> deletePari(@PathVariable int id) {

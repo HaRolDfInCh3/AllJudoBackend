@@ -2,6 +2,8 @@ package com.test.microservices.dto;
 
 
 
+import java.util.List;
+
 import com.test.microservices.enums.Sexe;
 
 import lombok.AllArgsConstructor;
@@ -18,5 +20,6 @@ public class Pari_compositionDto {
 	public String forfait;
 	public String podium_final;
 	public String premier_final;
-	public int pari_id;
+	public int pari;
+	List<Pari_compositionElementDto>elements;
 }

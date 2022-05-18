@@ -2,6 +2,7 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,7 +47,7 @@ public ResponseEntity<PariDto> getPari( @PathVariable int id) {
 }
 @GetMapping("/getAllParis")
 public ResponseEntity<List<PariDto>> getPari( ) {
-	List<Pari> lab=pariRepo.findAll();
+	List<Pari> lab=pariRepo.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	List<PariDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<PariDto>>(ldto,HttpStatus.OK);
 }

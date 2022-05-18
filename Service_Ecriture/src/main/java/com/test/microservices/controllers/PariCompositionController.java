@@ -1,7 +1,11 @@
 package com.test.microservices.controllers;
 
+import java.io.Console;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,14 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.test.microservices.dto.Pari_compositionDto;
 import com.test.microservices.mappers.Pari_compositionDtoToPari_composition;
 import com.test.microservices.pojos.Pari_composition;
+import com.test.microservices.pojos.Pari_compositionElement;
+import com.test.microservices.pojos.Video;
+import com.test.microservices.repositories.Pari_compositionElementRepository;
 import com.test.microservices.repositories.Pari_compositionRepository;
 
 @RestController
 public class PariCompositionController {
 	Pari_compositionRepository resultatRepo;
+	
+	Pari_compositionElementRepository pceR;
 	Pari_compositionDtoToPari_composition mapper;
-	public PariCompositionController(Pari_compositionRepository repo,Pari_compositionDtoToPari_composition m) {
+	public PariCompositionController(Pari_compositionElementRepository p,Pari_compositionRepository repo,Pari_compositionDtoToPari_composition m) {
 		this.resultatRepo=repo;
+		this.pceR=p;
 		this.mapper=m;
 		// TODO Auto-generated constructor stub
 	}
@@ -52,21 +62,28 @@ public ResponseEntity<List<Pari_compositionDto>> getPari_composition( ) {
 }
 @PostMapping("/addPari_composition")
 public ResponseEntity<Pari_compositionDto> addPari_composition(@RequestBody Pari_compositionDto dto) {
-	if(!resultatRepo.existsById(dto.getId())) {
+	Page<Pari_composition> c2 =resultatRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
 		Pari_composition ab=mapper.dtoToObject(dto);
+		ab.setId(max+1);
 		resultatRepo.save(ab);
 		return new ResponseEntity<Pari_compositionDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<Pari_compositionDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updatePari_composition/{id}")
 public ResponseEntity<Pari_compositionDto> updatePari_composition(@PathVariable int id,@RequestBody Pari_compositionDto dto) {
-	if(resultatRepo.existsById(id)) {
+	System.out.println(dto);
+	String idMongo=resultatRepo.findById(id).getIdMongo();
+	
 		Pari_composition ab=mapper.dtoToObject(dto);
+		List<Pari_compositionElement>listpce=ab.getElements();
+		pceR.saveAll(listpce);
+		resultatRepo.deleteById(idMongo);
+		ab.setIdMongo(idMongo);
 		resultatRepo.save(ab);
 		return new ResponseEntity<Pari_compositionDto>(dto,HttpStatus.OK);
-	}
-	return new ResponseEntity<Pari_compositionDto>(HttpStatus.NOT_FOUND);
+	
 }
 @DeleteMapping("/deletePari_composition/{id}")
 public ResponseEntity<Pari_compositionDto> deletePari_composition(@PathVariable int id) {

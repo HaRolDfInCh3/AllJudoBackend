@@ -20,7 +20,8 @@ public class Pari_user {
 	public String premier;
 	public java.util.Date date;
 	public int user_id;
-	public int pari_comp_id;
+	@Field("pari_comp_id")
+	public int paricompid;
 	@DocumentReference
 	private Pari_composition pari_composition2;
 	@DocumentReference

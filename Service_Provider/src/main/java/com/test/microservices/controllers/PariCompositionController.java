@@ -2,6 +2,7 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,15 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.test.microservices.dto.Pari_compositionDto;
 import com.test.microservices.mappers.Pari_compositionDtoToPari_composition;
 import com.test.microservices.pojos.Pari_composition;
+import com.test.microservices.repositories.PariRepository;
 import com.test.microservices.repositories.Pari_compositionRepository;
 
 @RestController
 public class PariCompositionController {
 	Pari_compositionRepository resultatRepo;
+	PariRepository pR;
 	Pari_compositionDtoToPari_composition mapper;
-	public PariCompositionController(Pari_compositionRepository repo,Pari_compositionDtoToPari_composition m) {
+	public PariCompositionController(PariRepository p,Pari_compositionRepository repo,Pari_compositionDtoToPari_composition m) {
 		this.resultatRepo=repo;
 		this.mapper=m;
+		this.pR=p;
 		// TODO Auto-generated constructor stub
 	}
 @GetMapping("/getPari_compositionByIdMongo/{id}")
@@ -43,6 +47,15 @@ public ResponseEntity<Pari_compositionDto> getPari_composition( @PathVariable in
 		return new ResponseEntity<Pari_compositionDto>(dto,HttpStatus.OK);
 	}
 	return new ResponseEntity<Pari_compositionDto>(HttpStatus.NOT_FOUND);
+}
+@GetMapping("/getPari_compositionByIdPari/{id}")
+public ResponseEntity<List<Pari_compositionDto>> getPari_compositionByIdPari( @PathVariable int id) {
+	if(pR.existsById(id)) {
+		List<Pari_composition> lab=resultatRepo.findByPari(id, Sort.by(Sort.Direction.DESC, "id"));
+		List<Pari_compositionDto> ldto=mapper.objectsToDtos(lab);
+		return new ResponseEntity<List<Pari_compositionDto>>(ldto,HttpStatus.OK);
+	}
+	return new ResponseEntity<List<Pari_compositionDto>>(HttpStatus.NOT_FOUND);
 }
 @GetMapping("/getAllPari_compositions")
 public ResponseEntity<List<Pari_compositionDto>> getPari_composition( ) {

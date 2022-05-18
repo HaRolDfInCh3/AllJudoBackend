@@ -1,5 +1,7 @@
 package com.test.microservices.pojos;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
@@ -24,7 +26,10 @@ public class Pari_composition {
 	public String forfait;
 	public String podium_final;
 	public String premier_final;
-	public int pari_id;
+	@Field("pari_id")
+	public int pari;
 	@DocumentReference
 	private Pari pari2;
+	@DocumentReference
+	List<Pari_compositionElement>elements;
 }

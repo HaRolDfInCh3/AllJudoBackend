@@ -50,6 +50,12 @@ public ResponseEntity<List<Pari_resultatDto>> getPari_resultat( ) {
 	List<Pari_resultatDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<Pari_resultatDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getPari_resultatsByPari_id/{id}")
+public ResponseEntity<List<Pari_resultatDto>> getPari_resultatByPariId(  @PathVariable int id) {
+	List<Pari_resultat> lab=resultatRepo.findByPari(id);
+	List<Pari_resultatDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<Pari_resultatDto>>(ldto,HttpStatus.OK);
+}
 @PostMapping("/addPari_resultat")
 public ResponseEntity<Pari_resultatDto> addPari_resultat(@RequestBody Pari_resultatDto dto) {
 	if(!resultatRepo.existsById(dto.getId())) {

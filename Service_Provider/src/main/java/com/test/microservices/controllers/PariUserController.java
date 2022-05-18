@@ -20,6 +20,7 @@ import com.test.microservices.repositories.Pari_userRepository;
 @RestController
 public class PariUserController {
 	Pari_userRepository puRepo;
+	
 	Pari_userDtoToPari_user mapper;
 	public PariUserController(Pari_userRepository repo,Pari_userDtoToPari_user m) {
 		this.puRepo=repo;
@@ -50,14 +51,19 @@ public ResponseEntity<List<Pari_userDto>> getPari_user( ) {
 	List<Pari_userDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<Pari_userDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getAllPari_usersByPari_Composition/{id}")
+public ResponseEntity<List<Pari_userDto>> getPari_usersByPari_Composition( @PathVariable int id ) {
+	List<Pari_user> lab=puRepo.findByParicompid(id);
+	List<Pari_userDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<Pari_userDto>>(ldto,HttpStatus.OK);
+}
 @PostMapping("/addPari_user")
 public ResponseEntity<Pari_userDto> addPari_user(@RequestBody Pari_userDto dto) {
-	if(!puRepo.existsById(dto.getId())) {
+	
 		Pari_user ab=mapper.dtoToObject(dto);
 		puRepo.save(ab);
 		return new ResponseEntity<Pari_userDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<Pari_userDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updatePari_user/{id}")
 public ResponseEntity<Pari_userDto> updatePari_user(@PathVariable int id,@RequestBody Pari_userDto dto) {
