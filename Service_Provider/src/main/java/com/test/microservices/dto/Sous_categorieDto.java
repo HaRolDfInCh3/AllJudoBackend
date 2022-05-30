@@ -13,4 +13,5 @@ public class Sous_categorieDto {
 	public int id;
 	public int categorie_ID;
 	public String nom_sous_categorie;
+	private CategorieDto categorie2;
 }

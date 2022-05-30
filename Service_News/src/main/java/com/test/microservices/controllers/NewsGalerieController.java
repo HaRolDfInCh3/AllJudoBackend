@@ -43,6 +43,12 @@ public ResponseEntity<News_galerieDto> getNews_galerie( @PathVariable int id) {
 	}
 	return new ResponseEntity<News_galerieDto>(HttpStatus.NOT_FOUND);
 }
+@GetMapping("/getAllPhotosByNewsId/{news_id}")
+public ResponseEntity<List<News_galerieDto>> getAllPhotosByNewsId(@PathVariable int news_id ) {
+	List<News_galerie> lab=objetRepo.findAllPhotosByNewsId(news_id);
+	List<News_galerieDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<News_galerieDto>>(ldto,HttpStatus.OK);
+}
 @GetMapping("/getAllNews_galeries")
 public ResponseEntity<List<News_galerieDto>> getNews_galerie( ) {
 	List<News_galerie> lab=objetRepo.findAll();

@@ -15,8 +15,9 @@ public class ServiceChampionsApplication implements CommandLineRunner {
 		SpringApplication.run(ServiceChampionsApplication.class, args);
 	}
 	public void run(String... args) throws Exception{
-
+		
 		System.out.println("Tous les rest controllers ont étés exposés ...");
+		
 		
 	    }
 

@@ -18,5 +18,6 @@ public class Pari_compositionElement {
 	public String participant;
 	public Boolean podium;
 	public Boolean premier;
+	private int paricompositionid;
 	
 }

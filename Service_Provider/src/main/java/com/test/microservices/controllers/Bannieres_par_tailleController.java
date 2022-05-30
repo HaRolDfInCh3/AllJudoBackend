@@ -1,6 +1,7 @@
 package com.test.microservices.controllers;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,24 @@ public ResponseEntity<List<Bannieres_par_tailleDto>> rechercheBannieres_par_tail
 		List<Bannieres_par_taille> lab=bannieres_par_tailleRepo.rechercheParTaille(taille);
 		List<Bannieres_par_tailleDto> ldto=mapper.objectsToDtos(lab);
 		return new ResponseEntity<List<Bannieres_par_tailleDto>>(ldto,HttpStatus.OK);
+	
+}
+@GetMapping("/getRandomBanniere_par_taille/{taille}")
+public ResponseEntity<Bannieres_par_tailleDto> getRandomBanniere_par_taille( @PathVariable String taille) {
+	
+		List<Bannieres_par_taille> lab=bannieres_par_tailleRepo.rechercheParTaille(taille);
+		Bannieres_par_taille b=null;
+		if(lab.size()>1) {
+			 Random rand = new Random(); //instance of random class
+		      int upperbound = lab.size();
+		      int indexretour = rand.nextInt(upperbound); 
+		      b=lab.get(indexretour);
+		}
+		else {
+			b=lab.get(0);
+		}
+		Bannieres_par_tailleDto dto=mapper.objectToDto(b);
+		return new ResponseEntity<Bannieres_par_tailleDto>(dto,HttpStatus.OK);
 	
 }
 @GetMapping("/getAllBannieres_par_tailles")

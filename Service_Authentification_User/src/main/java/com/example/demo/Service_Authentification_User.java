@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 
+
 @EnableMongoRepositories
 @EnableEurekaClient
 @SpringBootApplication
@@ -25,10 +26,11 @@ public class Service_Authentification_User implements CommandLineRunner {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Service_Authentification_User.class, args);
+		
 	}
 	public void run(String... args) throws Exception{
 		//cup.regenerer();
-		System.out.println(nom+"\nTous les rest controllers ont étés exposés ...");
+		
 		
 	    }
 	@Bean

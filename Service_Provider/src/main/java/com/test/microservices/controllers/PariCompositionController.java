@@ -57,6 +57,15 @@ public ResponseEntity<List<Pari_compositionDto>> getPari_compositionByIdPari( @P
 	}
 	return new ResponseEntity<List<Pari_compositionDto>>(HttpStatus.NOT_FOUND);
 }
+@GetMapping("/getPari_compositionByIdPariAsc/{id}")
+public ResponseEntity<List<Pari_compositionDto>> getPari_compositionByIdPariDesc( @PathVariable int id) {
+	if(pR.existsById(id)) {
+		List<Pari_composition> lab=resultatRepo.findByPari(id, Sort.by(Sort.Direction.ASC, "id"));
+		List<Pari_compositionDto> ldto=mapper.objectsToDtos(lab);
+		return new ResponseEntity<List<Pari_compositionDto>>(ldto,HttpStatus.OK);
+	}
+	return new ResponseEntity<List<Pari_compositionDto>>(HttpStatus.NOT_FOUND);
+}
 @GetMapping("/getAllPari_compositions")
 public ResponseEntity<List<Pari_compositionDto>> getPari_composition( ) {
 	List<Pari_composition> lab=resultatRepo.findAll();

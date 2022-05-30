@@ -3,9 +3,6 @@ package com.test.microservices.dto;
 
 
 import com.test.microservices.enums.TypeNews;
-import com.test.microservices.pojos.Admin;
-import com.test.microservices.pojos.Evenement;
-import com.test.microservices.pojos.Newscategorie;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +33,7 @@ public class NewsDto {
 	public int evenementID;
 	public int categorieID;
 	public String admin;
-	private Admin admin2;
-	private Newscategorie newscategorie2;
-	private Evenement evenement2;
+	private AdminDto admin2;
+	private NewscategorieDto newscategorie2;
+	private EvenementDto evenement2;
 }

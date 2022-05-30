@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,6 +48,27 @@ public ResponseEntity<EvenementDto> getEvenement( @PathVariable int id) {
 @GetMapping("/getAllEvenements")
 public ResponseEntity<List<EvenementDto>> getEvenement( ) {
 	List<Evenement> lab=objetRepo.findAll();
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getLastEvenements")
+public ResponseEntity<List<EvenementDto>> getLastEvenement( ) {
+	Page<Evenement> c2 =objetRepo.findAll(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "ID")));
+	List<Evenement> lab=c2.getContent();
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getNextEvenements")
+public ResponseEntity<List<EvenementDto>> getNextEvenement( ) {
+	List<Evenement> lab =objetRepo.findNextEvents();
+	
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getNextEvenementsDesc")
+public ResponseEntity<List<EvenementDto>> getNextEvenementDesc( ) {
+	List<Evenement> lab =objetRepo.findNextEventDescs(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "DateDebut")));
+	
 	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
 }

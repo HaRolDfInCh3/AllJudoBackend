@@ -2,6 +2,9 @@ package com.test.microservices.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -25,6 +28,12 @@ public interface ChampionRepository extends MongoRepository<Champion, String> {
 	public Boolean existsByIdMongo(String idMongo);
 	public Champion deleteById(int id2);
 	@Query("{ 'Nom':{$regex:?0,$options:'i'}}") 
-	List<Champion> findAllByNameStart(String regex);
+	List<Champion> findAllByNameStart(String regex,Sort s);
+	@Query("{ 'Nom':{$regex:?0,$options:'i'}}") 
+	List<Champion> findAllByName(String name);
+	@Query("{ 'DateNaissance':{$regex:?0,$options:'i'}}") 
+	List<Champion> findAnniversaires(String pattern);
+	@Query("{}")
+	public Page<Champion> findLatestChampions(Pageable p);
     
 }

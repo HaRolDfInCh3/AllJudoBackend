@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.test.microservices.dto.ChampionDto;
+import com.test.microservices.dto.PalmaresDto;
 import com.test.microservices.mappers.ChampionDtoToChampion;
 import com.test.microservices.pojos.Champion;
 import com.test.microservices.repositories.ChampionRepository;
@@ -43,6 +44,16 @@ public ResponseEntity<ChampionDto> getChampion( @PathVariable int id) {
 		return new ResponseEntity<ChampionDto>(dto,HttpStatus.OK);
 	}
 	return new ResponseEntity<ChampionDto>(HttpStatus.NOT_FOUND);
+}
+@GetMapping("/getPalmares/{id}")
+public ResponseEntity<List<PalmaresDto>> getPalmares( @PathVariable int id) {
+	List<PalmaresDto>liste=null;
+	if(championRepo.existsById(id)) {
+		Champion ab=championRepo.findById( id);
+		ChampionDto dto=mapper.objectToDto(ab);
+		return new ResponseEntity<List<PalmaresDto>>(liste,HttpStatus.OK);
+	}
+	return new ResponseEntity<List<PalmaresDto>>(HttpStatus.NOT_FOUND);
 }
 @GetMapping("/getAllChampions")
 public ResponseEntity<List<ChampionDto>> getChampion( ) {

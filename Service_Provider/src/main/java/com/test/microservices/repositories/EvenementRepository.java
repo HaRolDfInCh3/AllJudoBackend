@@ -2,6 +2,7 @@ package com.test.microservices.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
@@ -15,4 +16,8 @@ public interface EvenementRepository extends MongoRepository<Evenement, String> 
 	public Evenement deleteById(int id2);
 	@Query(" {Valider: false}")
 	public List<Evenement> findAllNonValide();
+	@Query("{DateDebut:{'$gt': new Date()}}")
+	public List<Evenement> findNextEvents();
+	@Query("{DateDebut:{'$gt': new Date()}}")
+	public List<Evenement> findNextEventDescs(Pageable p);
 }

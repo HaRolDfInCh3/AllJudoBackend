@@ -2,6 +2,8 @@ package com.test.microservices.dto;
 
 
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,4 +20,8 @@ public class CommentaireDto {
 	public int champion_id;
 	public String positif;
 	public String negatif;
+	private UserDto user2;
+	private VideoDto video2;
+	private ChampionDto champion2;
+	private NewsDto news2;
 }

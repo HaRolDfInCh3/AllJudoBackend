@@ -2,16 +2,14 @@ package com.example.ApiDoublons.services;
 
 
 
-
-
 public class Search {
 	
 	static int taille;
-	static int blocsize=10000;
+	static int blocsize;
 	public static int nbrdethreads;
 	
 	static{
-		
+		blocsize=Singleton.getInstance().getBlocsize();
 		taille=(int) Singleton.getInstance().getLc().size();
 		nbrdethreads=(int)(taille/blocsize)+1;
 		

@@ -2,6 +2,7 @@ package com.test.microservices.pojos;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import org.springframework.data.mongodb.core.mapping.Field;
 
 import lombok.AllArgsConstructor;
@@ -25,4 +26,10 @@ public class Commentaire {
 	public int champion_id;
 	public String positif;
 	public String negatif;
+	private User user2;
+	@DocumentReference(lazy = true)
+	private Video video2;
+	private Champion champion2;
+	@DocumentReference(lazy = true)
+	private News news2;
 }

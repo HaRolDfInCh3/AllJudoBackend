@@ -125,13 +125,13 @@ public ResponseEntity<Object> getALLSimilars(@PathVariable int deb,@PathVariable
 					Singleton.getInstance().getPos().add(curr);
 					Singleton.getInstance().clear();
 					
-					System.out.println("Debut Thread "+c.getId()+" "+c.getNom());
+					System.out.println("Debut recherche champion d'id "+c.getId()+" de nom "+c.getNom());
 					Singleton.getInstance().setChampion(c); 
 					Search.getSimilar(curr);
 					int n=Search.nbrdethreads;
 					while(true){
 						if(Singleton.getInstance().getFinis()==n){
-							break;
+							break; 
 						}
 					}
 					try {
@@ -146,7 +146,7 @@ public ResponseEntity<Object> getALLSimilars(@PathVariable int deb,@PathVariable
 					if(ldd.getDoublons().size()>0){
 						ld.add(ldd);
 					}
-					System.out.println("fin thread ");
+					System.out.println("fin recherche champion d'id "+c.getId()+" de nom "+c.getNom());
 				};
 			};
 			t.start();
@@ -158,10 +158,9 @@ public ResponseEntity<Object> getALLSimilars(@PathVariable int deb,@PathVariable
 			}
 			
 			
-			
 		}
 	}
-		
+	Singleton.getInstance().clear2(2); 
 	System.out.println("nbr: "+ld.size());
 	//System.out.println(ld);
 	return  new ResponseEntity<Object>(ld, HttpStatus.OK);

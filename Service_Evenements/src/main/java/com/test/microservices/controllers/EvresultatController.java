@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.test.microservices.dto.EvresultatDto;
 import com.test.microservices.mappers.EvresultatDtoToEvresultat;
 import com.test.microservices.pojos.Evresultat;
+import com.test.microservices.pojos.Palmares;
 import com.test.microservices.repositories.EvresultatRepository;
 
 @RestController
@@ -48,6 +49,14 @@ public ResponseEntity<EvresultatDto> getEvresultat( @PathVariable int id) {
 		return new ResponseEntity<EvresultatDto>(dto,HttpStatus.OK);
 	}
 	return new ResponseEntity<EvresultatDto>(HttpStatus.NOT_FOUND);
+}
+@GetMapping("/getPalmaresById/{id}")
+public ResponseEntity<List<Palmares>> getPalmares( @PathVariable int id) {
+	if(objetRepo.existsById(id)) {
+		List<Palmares> liste=objetRepo.aggregateBySample();
+		return new ResponseEntity<List<Palmares>>(liste,HttpStatus.OK);
+	}
+	return new ResponseEntity<List<Palmares>>(HttpStatus.NOT_FOUND);
 }
 @GetMapping("/getAllEvresultats")
 public ResponseEntity<List<EvresultatDto>> getEvresultat( ) {

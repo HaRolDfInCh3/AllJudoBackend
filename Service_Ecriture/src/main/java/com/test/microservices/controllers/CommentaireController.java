@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,14 +17,30 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.test.microservices.dto.CommentaireDto;
 import com.test.microservices.mappers.CommentaireDtoToCommentaire;
+import com.test.microservices.pojos.Champion;
 import com.test.microservices.pojos.Commentaire;
+import com.test.microservices.pojos.News;
+import com.test.microservices.pojos.User;
+import com.test.microservices.pojos.Video;
+import com.test.microservices.repositories.ChampionRepository;
 import com.test.microservices.repositories.CommentairesRepository;
+import com.test.microservices.repositories.NewsRepository;
+import com.test.microservices.repositories.UserRepository;
+import com.test.microservices.repositories.VideoRepository;
 @RestController
 public class CommentaireController {
 	CommentaireDtoToCommentaire mapper;
 	CommentairesRepository commentaireRepo;
-	public CommentaireController(CommentairesRepository repo,CommentaireDtoToCommentaire m) {
+	VideoRepository vRepo;
+	ChampionRepository cRepo;
+	NewsRepository nRepo;
+	UserRepository uRepo;
+	public CommentaireController(UserRepository u,NewsRepository n,VideoRepository v,ChampionRepository c,CommentairesRepository repo,CommentaireDtoToCommentaire m) {
 		this.commentaireRepo=repo;
+		this.vRepo=v;
+		this.uRepo=u;
+		this.cRepo=c;
+		this.nRepo=n;
 		this.mapper=m;
 		// TODO Auto-generated constructor stub
 	}
@@ -51,12 +70,34 @@ public ResponseEntity<List<CommentaireDto>> getCommentaire( ) {
 }
 @PostMapping("/addCommentaire")
 public ResponseEntity<CommentaireDto> addCommentaire(@RequestBody CommentaireDto dto) {
-	if(!commentaireRepo.existsById(dto.getId())) {
+	Page<Commentaire> c2 =commentaireRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
 		Commentaire ab=mapper.dtoToObject(dto);
+		int uid=ab.getUser_id();
+		int nid=ab.getNews_id();
+		int vid=ab.getVideo_id();
+		int cid=ab.getChampion_id();
+		if(uRepo.existsById(uid)) {
+			System.out.println("Userid");
+			User u=uRepo.findById(uid);
+			ab.setUser2(u);
+			
+		}if(vRepo.existsById(vid)) {
+			Video v=vRepo.findById(vid);
+			ab.setVideo2(v);
+		}if(cRepo.existsById(cid)) {
+			Champion c=cRepo.findById(cid);
+			ab.setChampion2(c);
+		}if(nRepo.existsById(uid)) {
+			News n=nRepo.findById(nid);
+			ab.setNews2(n);
+		}
+		ab.setId(max+1);
 		commentaireRepo.save(ab);
+		dto=mapper.objectToDto(ab);
 		return new ResponseEntity<CommentaireDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<CommentaireDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updateCommentaire/{id}")
 public ResponseEntity<CommentaireDto> updateCommentaire(@PathVariable int id,@RequestBody CommentaireDto dto) {

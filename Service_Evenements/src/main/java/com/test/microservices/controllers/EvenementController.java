@@ -1,7 +1,12 @@
 package com.test.microservices.controllers;
 
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -56,6 +61,42 @@ public ResponseEntity<EvenementDto> getEvenement( @PathVariable int id) {
 		return new ResponseEntity<EvenementDto>(dto,HttpStatus.OK);
 	}
 	return new ResponseEntity<EvenementDto>(HttpStatus.NOT_FOUND);
+}
+@GetMapping("/getNextEventsByCategorieAndAge/{age_id}/{cat_id}/{mois}/{annee}")
+public ResponseEntity<List<EvenementDto>> getNextEventsByCategorieAndAge( @PathVariable int age_id,@PathVariable int cat_id,@PathVariable int mois,@PathVariable int annee) throws ParseException {
+	String date_deb="01/"+(mois+1)+"/"+annee;  
+	SimpleDateFormat pattern=new SimpleDateFormat("dd/MM/yyyy");
+    Date date1=pattern.parse(date_deb);  
+		Date date_fin=DateUtils.addMonths(date1, 2);
+		date_fin.setDate(30);
+		System.out.println("de "+pattern.format(date1) +" a "+pattern.format(date_fin));
+		List<Evenement> ab=null;
+		if(age_id==-1) {
+			ab=objetRepo.findNextEventsByCat(age_id, cat_id, date1, date_fin);
+		}if(cat_id==-1) {
+			ab=objetRepo.findNextEventsByAge(age_id, cat_id, date1, date_fin);
+		}else {
+			ab=objetRepo.findNextEventsByCatAndAge(age_id, cat_id, date1, date_fin);
+
+		}
+		List<EvenementDto> dto=mapper.objectsToDtos(ab);
+		return new ResponseEntity<List<EvenementDto>>(dto,HttpStatus.OK);
+	
+}
+@GetMapping("/getNextEventsByTrimester/{mois}/{annee}")
+public ResponseEntity<List<EvenementDto>> getNextEventsByTrimester(@PathVariable int mois,@PathVariable int annee) throws ParseException {
+	
+	
+	String date_deb="01/"+(mois+1)+"/"+annee;  
+	SimpleDateFormat pattern=new SimpleDateFormat("dd/MM/yyyy");
+    Date date1=pattern.parse(date_deb);  
+		Date date_fin=DateUtils.addMonths(date1, 2);
+		date_fin.setDate(30);
+		System.out.println("de "+pattern.format(date1) +" a "+pattern.format(date_fin));
+		List<Evenement> ab=objetRepo.findNextEventsByTrimester( date1, date_fin,Sort.by(Sort.Direction.ASC, "DateDebut"));
+		List<EvenementDto> dto=mapper.objectsToDtos(ab);
+		return new ResponseEntity<List<EvenementDto>>(dto,HttpStatus.OK);
+	
 }
 @GetMapping("/getAllEvenements")
 public ResponseEntity<List<EvenementDto>> getEvenement( ) {

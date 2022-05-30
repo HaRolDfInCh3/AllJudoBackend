@@ -55,6 +55,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\contro
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\EvcategorieageDtoToEvcategorieage.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Evcategorieevenement.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\LiensRepository.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\ParametresBatchController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Pari_user.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\ArticleRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\CommentaireController.java
@@ -70,12 +71,14 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\contro
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\VideosController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Livre.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\NewsRepository.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\ParametresBatch.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\EvenementimportantsDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\OptionsRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\ClubRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\EvcategorieevenementDtoToEvcategorieevenement.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\Sous_categorieDtoToSous_categorie.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Pari_resultat.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\Pari_compositionElementRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Entrainement.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\Club_admin_externe_journalDtoToClub_admin_externe_journal.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\EntrainementController.java
@@ -97,6 +100,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mapper
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\PariRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\RegionDtoToRegion.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\LienscategorieRepository.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\ParametresBatchRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Abonnement.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Categorie.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\EvenementimportantdirectDtoToEvenementimportantdirect.java
@@ -137,6 +141,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\contro
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\UserDtoToUser.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\EvenementimportantdirectDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\AdminDtoToAdmin.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\ParametresBatchDtoToParametresBatch.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\NewsDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\EvenementRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\Pari_userDto.java
@@ -146,6 +151,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\Gr
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\News_galerieDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\Bannieres_par_tailleController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\LiensDto.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\ParametresBatchDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\ClubDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Club.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\EvenementimportantdirectController.java
@@ -233,6 +239,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\GalerieRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Bannierebackground.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\VideoDtoToVideo.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Pari_compositionElement.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\LienController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\VideoDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Club_horaire.java
@@ -267,6 +274,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\reposi
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\Pari_resultatRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Admin.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\NewscategorieRepository.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\Pari_compositionElementDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\ChampionAdminExterneJournalRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\MembreController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\CategorieDtoToCategorie.java

@@ -40,6 +40,14 @@ public class NewsController {
 		this.ncRepo=nc;
 		// TODO Auto-generated constructor stub
 	}
+@GetMapping("/getNewsByCategorieAndType/{cat}/{type}/{curid}")
+public ResponseEntity<List<NewsDto>> getNewsByCategorieAndType( @PathVariable String cat,@PathVariable String type,@PathVariable int curid) {
+	
+		Page<News> ab=objetRepo.findNewsByCategorieAndType(cat, type,curid, PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "date")));
+		List<NewsDto> dto=mapper.objectsToDtos(ab.getContent());
+		return new ResponseEntity<List<NewsDto>>(dto,HttpStatus.OK);
+	
+}
 @GetMapping("/getNewsByIdMongo/{id}")
 public ResponseEntity<NewsDto> getNews( @PathVariable String id) {
 	if(objetRepo.existsByIdMongo(id)) {
@@ -62,6 +70,52 @@ public ResponseEntity<NewsDto> getNews( @PathVariable int id) {
 public ResponseEntity<List<NewsDto>> getNews( ) {
 	List<News> lab=objetRepo.findAll(Sort.by(Sort.Direction.ASC, "ID"));
 	List<NewsDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getAllNewsByDateDesc")
+public ResponseEntity<List<NewsDto>> getAllNewsByDateDesc( ) {
+	List<News> lab=objetRepo.findAll(Sort.by(Sort.Direction.DESC, "date"));
+	List<NewsDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getLatestNews")
+public ResponseEntity<List<NewsDto>> getLatestNews( ) {
+	Page<News> c2 =objetRepo.findAll(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "date")));
+
+	List<NewsDto> ldto=mapper.objectsToDtos(c2.getContent());
+	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getBrevesNews")
+public ResponseEntity<List<NewsDto>> getBrevesNews( ) {
+	Page<News> c2 =objetRepo.findBrevesNews(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "date")));
+
+	List<NewsDto> ldto=mapper.objectsToDtos(c2.getContent());
+	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getLatestNewsAladeux/{total}")
+public ResponseEntity<List<NewsDto>> getLatestNewsAlaDeux(@PathVariable int total ) {
+	Page<News> c2 =objetRepo.findAllNewsALaDeux(PageRequest.of(0, total, Sort.by(Sort.Direction.DESC, "date")));
+
+	List<NewsDto> ldto=mapper.objectsToDtos(c2.getContent());
+	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getNewsByCategorieAndChapo/{categorie}/{chapo}")
+public ResponseEntity<List<NewsDto>> getNewsByCategorieAndChapo(@PathVariable String categorie,@PathVariable String chapo ) {
+	if(categorie.equalsIgnoreCase("any")) {
+		categorie="";
+	}if(chapo.equalsIgnoreCase("any")) {
+		chapo="";
+	}
+	List<News> c2 =objetRepo.findNewsByCategorieAndChapo(chapo,categorie);
+
+	List<NewsDto> ldto=mapper.objectsToDtos(c2);
+	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getLatestNewsAlaUne/{total}")
+public ResponseEntity<List<NewsDto>> getLatestNewsAlaUne(@PathVariable int total ) {
+	Page<News> c2 =objetRepo.findAllNewsALaUne(PageRequest.of(0, total, Sort.by(Sort.Direction.DESC, "date")));
+
+	List<NewsDto> ldto=mapper.objectsToDtos(c2.getContent());
 	return new ResponseEntity<List<NewsDto>>(ldto,HttpStatus.OK);
 }
 @PostMapping("/addNews")
@@ -89,6 +143,10 @@ public ResponseEntity<NewsDto> addNews(@RequestBody NewsDto dto) {
 			Admin admin=adRepo.findByLogin(adm);
 			System.out.println("Admin trouvé");
 			ab.setAdmin2(admin);
+		}
+		if(ab.photo!=null) {
+			String url=ab.photo.replace("C:\\fakepath\\", "");
+			ab.setPhoto(url);
 		}
 		ab.setId(max+1);
 		System.out.println(ab);

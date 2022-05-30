@@ -41,9 +41,9 @@ public class News {
 	public String admin;
 	@DocumentReference
 	private Admin admin2;
-	@DocumentReference
+	//choix volontaire car il sera directement embarqué
 	private Newscategorie Newscategorie2;
-	@DocumentReference
+	@DocumentReference  //spring va le recuperer
 	private Evenement evenement2;
 	
 }

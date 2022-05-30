@@ -30,5 +30,9 @@ public class VideoDto {
 	public String poidID;
 	public Sexe sexe;
 	public Boolean top_ippon;
+	private ChampionDto champion;
+	private TechniqueDto technique;
+	private TechniqueDto technique2;
+	private EvenementDto evenement;
 
 }

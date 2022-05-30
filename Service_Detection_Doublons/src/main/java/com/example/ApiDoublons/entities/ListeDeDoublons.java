@@ -12,7 +12,7 @@ import lombok.*;
 public class ListeDeDoublons {
 	@JsonProperty("id")
 	private int id;
-	@JsonProperty("champions")
+	@JsonProperty("champion")
 	private Champion champion;
 	@JsonProperty("doublons")
 	private List<Champion>doublons;

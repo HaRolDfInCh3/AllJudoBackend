@@ -16,7 +16,7 @@ public class News_galerie {
 	private String idMongo;
 	@Field("ID")
 	private int id;
-	@DocumentReference
+	@DocumentReference(lazy = true)
 	private News news2;
 	public int news_id;
 	public String path;

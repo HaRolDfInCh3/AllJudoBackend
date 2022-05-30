@@ -21,6 +21,7 @@ public class Annonce {
 	@Field("ID")
 	public int id;
 	public int sous_categorie_ID;
+	private String login;
 	@DocumentReference
 	private Sous_categorie sous_categorie2;
 	@DocumentReference
@@ -36,6 +37,6 @@ public class Annonce {
 	public String Ville;
 	public String Pays;
 	public String Telephone;
-	public int Premium;
-	public int Valide;
+	public boolean Premium;
+	public boolean Valide;
 }

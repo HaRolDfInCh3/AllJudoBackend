@@ -44,6 +44,7 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\DtoToObject.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Champion_popularite.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Entrainement.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\ParametresBatchDtoToParametresBatch.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\security\SecurityConfig.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\SharedLib.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\EvenementimportantdirectDto.java
@@ -67,6 +68,7 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\Club_admin_externeDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\EvcategorieageRepository.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\VideoDtoToVideo.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\ParametresBatch.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\Article_imgDtoToArticle_img.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\GradeRepository.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\PaysController.java
@@ -103,6 +105,7 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\DepartementDtoToDepartement.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\BannierebackgroundDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Departement.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Pari_compositionElement.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\AbonnementController.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Livre.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\BbRepository.java
@@ -164,6 +167,7 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\CommentaireDtoToCommentaire.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\EvcategorieevenementRepository.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\enums\CategorieEvenementSexe.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\Pari_compositionElementDtoToPari_compositionElement.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Nationality.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\NationalityController.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\PariController.java
@@ -177,8 +181,10 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\Pari_userDtoToPari_user.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Image.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\NewscategorieRepository.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\ParametresBatchController.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\ChampionDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\LienscategorieDto.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\ParametresBatchRepository.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Evresultat.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Article.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\ArticleRepository.java
@@ -219,9 +225,11 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\EntrainementDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\EvcategorieageDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Champion_popularite1.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\ParametresBatchDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\Club_admin_externe_journalController.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\DepartementRepository.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\MembreDto.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\Pari_compositionElementDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\SousCategorieController.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\PaysDtoToPays.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\NewsGalerieController.java
@@ -268,6 +276,7 @@ C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\controllers\VideosController.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\PariDtoToPari.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\pojos\Pari_user.java
+C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\Pari_compositionElementRepository.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\dto\EvenementimportantsDto.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\mappers\Champion_populariteDtoToChampion_popularite1.java
 C:\Users\user\workspace all judo backend\Service_Ecriture\src\main\java\com\test\microservices\repositories\LiensRepository.java

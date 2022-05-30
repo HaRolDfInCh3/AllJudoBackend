@@ -1,6 +1,10 @@
 package com.test.microservices.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -61,11 +65,34 @@ public ResponseEntity<List<ChampionDto>> getChampion( ) {
 	List<ChampionDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<ChampionDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getLatestChampions")
+public ResponseEntity<List<ChampionDto>> getLatestChampion( ) {
+	Page<Champion> lab=championRepo.findLatestChampions(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "ID")));
+	List<ChampionDto> ldto=mapper.objectsToDtos(lab.getContent());
+	return new ResponseEntity<List<ChampionDto>>(ldto,HttpStatus.OK);
+} 
+@GetMapping("/getAnniversaires")
+public ResponseEntity<List<ChampionDto>> getAnniversaires( ) {
+	Calendar cal = Calendar.getInstance();
+	String jour_mois=new SimpleDateFormat("MMM dd", Locale.ENGLISH).format(cal.getTime());
+	System.out.println(jour_mois);
+	List<Champion> lab=championRepo.findAnniversaires(jour_mois);
+	List<ChampionDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<ChampionDto>>(ldto,HttpStatus.OK);
+}
 @GetMapping("/getAllChampionsByNameStart/{premierelettre}")
 public ResponseEntity<List<ChampionDto>> getChampionByNameStart(@PathVariable String premierelettre ) {
 	String regex="^"+premierelettre+".*";
 	System.out.println(regex);
-	List<Champion> lab=championRepo.findAllByNameStart(regex);
+	List<Champion> lab=championRepo.findAllByNameStart(regex,Sort.by(Sort.Direction.ASC, "Nom"));
+	List<ChampionDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<ChampionDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getAllChampionsByName/{nom}")
+public ResponseEntity<List<ChampionDto>> getChampionByName(@PathVariable String nom ) {
+	String regex=".*"+nom+".*";
+	System.out.println(regex);
+	List<Champion> lab=championRepo.findAllByName(regex);
 	List<ChampionDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<ChampionDto>>(ldto,HttpStatus.OK);
 }

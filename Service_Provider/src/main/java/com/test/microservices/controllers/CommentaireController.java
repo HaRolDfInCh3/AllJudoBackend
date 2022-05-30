@@ -2,6 +2,8 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.test.microservices.dto.CommentaireDto;
 import com.test.microservices.mappers.CommentaireDtoToCommentaire;
 import com.test.microservices.pojos.Commentaire;
+import com.test.microservices.pojos.News;
 import com.test.microservices.repositories.CommentairesRepository;
 @RestController
 public class CommentaireController {
@@ -44,16 +47,50 @@ public ResponseEntity<CommentaireDto> getCommentaire( @PathVariable int id) {
 	}
 	return new ResponseEntity<CommentaireDto>(HttpStatus.NOT_FOUND);
 }
+@GetMapping("/getAllCommentsByUserId/{id}")
+public ResponseEntity<List<CommentaireDto>> getAllCommentsByUserId( @PathVariable int id) {
+	
+		List<Commentaire>  ab=commentaireRepo.findAllCommentsByUserId(id,Sort.by(Sort.Direction.DESC, "date"));
+		List<CommentaireDto> dtos=mapper.objectsToDtos(ab);
+		return new ResponseEntity<List<CommentaireDto>>(dtos,HttpStatus.OK);
+}
+@GetMapping("/getAllCommentsByNewsId/{id}")
+public ResponseEntity<List<CommentaireDto>> getAllCommentsByNewsId( @PathVariable int id) {
+	
+		List<Commentaire>  ab=commentaireRepo.findAllCommentsByNewsId(id,Sort.by(Sort.Direction.DESC, "date"));
+		List<CommentaireDto> dtos=mapper.objectsToDtos(ab);
+		return new ResponseEntity<List<CommentaireDto>>(dtos,HttpStatus.OK);
+}
+@GetMapping("/getAllCommentsByVideoId/{id}")
+public ResponseEntity<List<CommentaireDto>> getAllCommentsByVideoId( @PathVariable int id) {
+	
+		List<Commentaire>  ab=commentaireRepo.findAllCommentsByVideoId(id,Sort.by(Sort.Direction.DESC, "date"));
+		List<CommentaireDto> dtos=mapper.objectsToDtos(ab);
+		return new ResponseEntity<List<CommentaireDto>>(dtos,HttpStatus.OK);
+}
+@GetMapping("/getAllCommentsByUserIdAndNewsId/{userid}/{newsid}")
+public ResponseEntity<List<CommentaireDto>> getAllCommentsByUserIdAndNewsId( @PathVariable int userid,@PathVariable int newsid) {
+	
+		List<Commentaire>  ab=commentaireRepo.findAllCommentsByUserIdAndNewsId(userid,newsid,Sort.by(Sort.Direction.DESC, "date"));
+		List<CommentaireDto> dtos=mapper.objectsToDtos(ab);
+		return new ResponseEntity<List<CommentaireDto>>(dtos,HttpStatus.OK);
+}
 @GetMapping("/getAllCommentaires")
 public ResponseEntity<List<CommentaireDto>> getCommentaire( ) {
 	List<Commentaire> lab=commentaireRepo.findAll(Sort.by(Sort.Direction.DESC, "ID"));
 	List<CommentaireDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<CommentaireDto>>(ldto,HttpStatus.OK);
 }
-@GetMapping("/getLastCommentaires")
-public ResponseEntity<List<CommentaireDto>> getLastCommentaire( ) {
+@GetMapping("/getAllLastCommentaires")
+public ResponseEntity<List<CommentaireDto>> getAllLastCommentaire( ) {
 	List<Commentaire> lab=commentaireRepo.findAll(Sort.by(Sort.Direction.DESC, "date"));
 	List<CommentaireDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<CommentaireDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getLastCommentaires")
+public ResponseEntity<List<CommentaireDto>> getLastCommentaire( ) {
+	Page<Commentaire> c2 =commentaireRepo.findAll(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "date")));
+List<CommentaireDto> ldto=mapper.objectsToDtos(c2.getContent());
 	return new ResponseEntity<List<CommentaireDto>>(ldto,HttpStatus.OK);
 }
 @PostMapping("/addCommentaire")

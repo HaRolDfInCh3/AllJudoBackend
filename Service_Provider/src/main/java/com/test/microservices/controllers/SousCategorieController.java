@@ -2,6 +2,7 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -47,7 +48,7 @@ public ResponseEntity<Sous_categorieDto> getSous_categorie( @PathVariable int id
 }
 @GetMapping("/getAllSous_categories")
 public ResponseEntity<List<Sous_categorieDto>> getSous_categorie( ) {
-	List<Sous_categorie> lab=userRepo.findAll();
+	List<Sous_categorie> lab=userRepo.findAll(Sort.by(Sort.Direction.DESC, "ID"));
 	List<Sous_categorieDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<Sous_categorieDto>>(ldto,HttpStatus.OK);
 }

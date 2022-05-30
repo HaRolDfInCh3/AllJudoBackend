@@ -28,7 +28,7 @@ public class JwtAutorisationFilter extends OncePerRequestFilter{
 			throws ServletException, IOException {
 		// elle va verifier les token si on est deja authentifier
 		System.out.println("Filter Before actif...\nRequete vers "+request.getServletPath());
-		if(request.getServletPath().equals("/refreshToken")) {
+		if(request.getServletPath().equals("/refreshToken") ) {
 			filterChain.doFilter(request, response);//tu passes au filtre suivant car le
 			//refresh token n'a pas de roles pour faire la verification du bas
 		}else {
@@ -41,10 +41,19 @@ public class JwtAutorisationFilter extends OncePerRequestFilter{
 					JWTVerifier verifier=JWT.require(algorithm).build();
 					DecodedJWT decoded= verifier.verify(jwt);
 					String username=decoded.getSubject();
-					String roles=decoded.getClaim("roles").asString();
-					System.out.println(roles);
 					Collection<GrantedAuthority>gats=new ArrayList<>();
+					try {
+						String roles=decoded.getClaim("roles").asString();
+					System.out.println(roles);
+					
 					gats.add(new SimpleGrantedAuthority(roles));
+					}catch (Exception e) {
+						String[] roles=decoded.getClaim("roles").asArray(String.class);
+						for(String r:roles) {
+							gats.add(new SimpleGrantedAuthority(r));
+						}
+					}
+					
 					UsernamePasswordAuthenticationToken upat=new UsernamePasswordAuthenticationToken(username, null,gats);
 					SecurityContextHolder.getContext().setAuthentication(upat);
 					System.out.println("Votre token est valide !");

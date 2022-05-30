@@ -35,7 +35,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.headers().frameOptions().disable(); //desactiver la protection contre les frames pour un site qui les utilise
 		//http.authorizeRequests().antMatchers(HttpMethod.POST,"/users/**").hasAnyAuthority("Super_Admin");
-		http.authorizeRequests().anyRequest().authenticated();//toutes les requettes necessitent une authentifiation
+		http.authorizeRequests().antMatchers(HttpMethod.GET,"/**").permitAll().anyRequest().authenticated();
+
+		//toutes les requettes necessitent une authentifiation
 
 		//installer le filtre qui va traiter le formulaire
 		http.addFilterBefore(new JwtAutorisationFilter(), UsernamePasswordAuthenticationFilter.class);

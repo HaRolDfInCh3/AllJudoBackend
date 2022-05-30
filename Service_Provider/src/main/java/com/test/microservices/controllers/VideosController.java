@@ -2,6 +2,8 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +50,35 @@ public ResponseEntity<VideoDto> getVideo( @PathVariable int id) {
 @GetMapping("/getAllVideos")
 public ResponseEntity<List<VideoDto>> getVideo( ) {
 	List<Video> lab=videoRepo.findAll(Sort.by(Sort.Direction.DESC, "ID"));
+	List <VideoDto>ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<VideoDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getSimilarsVideos/{cid}/{tid}/{t2id}/{eid}")
+public ResponseEntity<List<VideoDto>> getSimilarsVideo(@PathVariable int cid,@PathVariable int tid,@PathVariable int t2id,@PathVariable int eid ) {
+	if(cid==0) {
+		cid=-1;
+	}
+	if(tid==0) {
+		tid=-1;
+	}
+	if(t2id==0) {
+		t2id=-1;
+	}
+	if(eid==0) {
+		eid=-1;
+	}
+	Page<Video> lab=videoRepo.findSimilars(cid, tid, t2id, eid, PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "ID")));
+	List <VideoDto>ldto=mapper.objectsToDtos(lab.getContent());
+	return new ResponseEntity<List<VideoDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getByTitreOrCategorie/{mot_cle}/{categorie}")
+public ResponseEntity<List<VideoDto>> getByTitreOrCategorie(@PathVariable String mot_cle,@PathVariable String categorie ) {
+	if(!mot_cle.equals("any") && !categorie.equals("any")) {
+		List<Video> lab=videoRepo.findByTitreAndCategorie(mot_cle, categorie, Sort.by(Sort.Direction.DESC, "ID"));
+		List <VideoDto>ldto=mapper.objectsToDtos(lab);
+		return new ResponseEntity<List<VideoDto>>(ldto,HttpStatus.OK);
+	}
+	List<Video> lab=videoRepo.findByTitreOrCategorie(mot_cle, categorie, Sort.by(Sort.Direction.DESC, "ID"));
 	List <VideoDto>ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<VideoDto>>(ldto,HttpStatus.OK);
 }

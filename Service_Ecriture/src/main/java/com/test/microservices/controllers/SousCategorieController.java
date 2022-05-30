@@ -2,6 +2,9 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,17 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.test.microservices.dto.Sous_categorieDto;
 import com.test.microservices.mappers.Sous_categorieDtoToSous_categorie;
+import com.test.microservices.pojos.Categorie;
 import com.test.microservices.pojos.Sous_categorie;
+import com.test.microservices.repositories.CategorieRepository;
 import com.test.microservices.repositories.Sous_categorieRepository;
-import com.test.microservices.repositories.Sous_categorieRepository;
+
 
 @RestController
 public class SousCategorieController {
 	Sous_categorieRepository userRepo;
+	CategorieRepository catRepo;
 	Sous_categorieDtoToSous_categorie mapper;
-	public SousCategorieController(Sous_categorieRepository repo,Sous_categorieDtoToSous_categorie m) {
+	public SousCategorieController(CategorieRepository c,Sous_categorieRepository repo,Sous_categorieDtoToSous_categorie m) {
 		this.userRepo=repo;
 		this.mapper=m;
+		this.catRepo=c;
 		// TODO Auto-generated constructor stub
 	}
 @GetMapping("/getSous_categorieByIdMongo/{id}")
@@ -53,12 +60,22 @@ public ResponseEntity<List<Sous_categorieDto>> getSous_categorie( ) {
 }
 @PostMapping("/addSous_categorie")
 public ResponseEntity<Sous_categorieDto> addSous_categorie(@RequestBody Sous_categorieDto dto) {
-	if(!userRepo.existsById(dto.getId())) {
-		Sous_categorie ab=mapper.dtoToObject(dto);
+	Page<Sous_categorie> c2 =userRepo.findAll(PageRequest.of(0, 1, Sort.by(Sort.Direction.DESC, "ID")));
+	int max=c2.getContent().get(0).getId();
+	System.out.println("Id max: "+max);
+	int catId=dto.getCategorie_ID();
+	Sous_categorie ab=mapper.dtoToObject(dto);
+	if(this.catRepo.existsById(catId)) {
+		Categorie cat=catRepo.findById(catId);
+		ab.setCategorie2(cat);
+		
+	}
+		
+		ab.setId(max+1);
+		dto.setId(max+1);
 		userRepo.save(ab);
 		return new ResponseEntity<Sous_categorieDto>(dto,HttpStatus.CREATED);
-	}
-	return new ResponseEntity<Sous_categorieDto>(HttpStatus.CONFLICT);
+	
 }
 @PutMapping("/updateSous_categorie/{id}")
 public ResponseEntity<Sous_categorieDto> updateSous_categorie(@PathVariable int id,@RequestBody Sous_categorieDto dto) {

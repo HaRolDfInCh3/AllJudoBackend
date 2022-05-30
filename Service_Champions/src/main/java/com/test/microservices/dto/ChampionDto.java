@@ -2,9 +2,8 @@ package com.test.microservices.dto;
 
 import java.util.Date;
 
-
-
-
+import com.test.microservices.pojos.Club;
+import com.test.microservices.pojos.Pays;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -49,4 +48,7 @@ public class ChampionDto {
 	private String phrase;
 	private String vuPar;
 	private String site;
+	private Pays pays2;
+	private Pays nvpays2;
+	private Club club2;
 }

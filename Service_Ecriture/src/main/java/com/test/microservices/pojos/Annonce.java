@@ -27,6 +27,7 @@ public class Annonce {
 	private User user2;
 	public int User_ID;
 	public String Titre;
+	private String login;
 	public String Descriptif;
 	public java.util.Date Date_publication;
 	public java.util.Date Date_modification;
@@ -36,6 +37,6 @@ public class Annonce {
 	public String Ville;
 	public String Pays;
 	public String Telephone;
-	public int Premium;
-	public int Valide;
+	public boolean Premium;
+	public boolean Valide;
 }

@@ -2,6 +2,8 @@ package com.test.microservices.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.test.microservices.dto.EvresultatDto;
 import com.test.microservices.mappers.EvresultatDtoToEvresultat;
 import com.test.microservices.pojos.Evresultat;
+
 import com.test.microservices.repositories.EvresultatRepository;
 
 @RestController
@@ -51,6 +54,14 @@ public ResponseEntity<List<EvresultatDto>> getEvresultat( ) {
 	List<EvresultatDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<EvresultatDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getLastEvresultats")
+public ResponseEntity<List<EvresultatDto>> getLastEvresultat( ) {
+	Page<Evresultat> c2 =objetRepo.findAll(PageRequest.of(0, 7, Sort.by(Sort.Direction.DESC, "ID")));
+	List<Evresultat> lab=c2.getContent();
+	List<EvresultatDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvresultatDto>>(ldto,HttpStatus.OK);
+}
+
 
 @PostMapping("/addEvresultat")
 public ResponseEntity<EvresultatDto> addEvresultat(@RequestBody EvresultatDto dto) {

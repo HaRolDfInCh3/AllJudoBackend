@@ -13,6 +13,8 @@ public class Singleton {
 	private static Singleton instance;
    private ChampionRepository cr;
    private Champion champion;
+   private int blocsize;
+   private int nombre_de_threads;
     private List<Champion>lc;
     private List<Integer>pos=new ArrayList<Integer>();
     private List<Champion>resultats=new ArrayList<Champion>();
@@ -34,7 +36,8 @@ public class Singleton {
     	champion=null;
     }
     public void clear2(int i){
-    	
+    	resultats2.clear();
+    	pos.clear();
     	finis=0;
     	champion=null;
     }
@@ -48,7 +51,7 @@ public class Singleton {
 				e.printStackTrace();
 			}
     		//System.out.println("Total: "+resultats.size());
-    		//System.out.println(resultats);
+    		//System.out.println(resultats); 
     		
     	}
     }

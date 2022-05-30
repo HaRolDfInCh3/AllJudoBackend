@@ -1,5 +1,7 @@
 package com.test.microservices.dto;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ public class AnnonceDto {
 	public int sous_categorie_ID;
 	public int user_ID;
 	public String titre;
+	private String login;
 	public String descriptif;
 	public java.util.Date date_publication;
 	public java.util.Date date_modification;
@@ -20,6 +23,8 @@ public class AnnonceDto {
 	public String ville;
 	public String pays;
 	public String telephone;
-	public int premium;
-	public int valide;
+	public boolean Premium;
+	private Sous_categorieDto sous_categorie2;
+	private UserDto user2;
+	public boolean Valide;
 }

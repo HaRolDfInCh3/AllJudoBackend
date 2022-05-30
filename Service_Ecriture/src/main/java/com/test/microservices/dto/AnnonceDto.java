@@ -10,6 +10,7 @@ public class AnnonceDto {
 	public int id;
 	public int sous_categorie_ID;
 	public int user_ID;
+	private String login;
 	public String titre;
 	public String descriptif;
 	public java.util.Date date_publication;
@@ -20,6 +21,6 @@ public class AnnonceDto {
 	public String ville;
 	public String pays;
 	public String telephone;
-	public int premium;
-	public int valide;
+	public boolean Premium;
+	public boolean Valide;
 }
