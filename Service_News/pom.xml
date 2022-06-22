@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.test</groupId>
-	<artifactId>microservices</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>service_news</artifactId>
+	<version>0.0.1</version>
 	<name>Service_News</name>
 	<description>Service Alljudo News</description>
 	<properties>
@@ -79,6 +79,11 @@
 		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		    <version>3.1.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.spotify</groupId>
+		    <artifactId>dockerfile-maven-extension</artifactId>
+		    <version>1.4.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -95,6 +100,27 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+		     <groupId>com.spotify</groupId>
+  		     <artifactId>dockerfile-maven-plugin</artifactId>
+  			 <version>1.4.13</version>
+		      
+             <executions>
+                 <execution>
+                     <id>default</id>
+                     <goals>
+                         <goal>build</goal>
+                         <goal>push</goal>
+                     </goals>
+                 </execution>
+             </executions>
+             <configuration>
+             <serverId>docker-hub</serverId>
+             <repository>ayrtongonsallo/${project.artifactId}</repository>
+             <tag>${project.version}</tag>
+             <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+             </configuration>
+    		</plugin>
 		</plugins>
 	</build>
 

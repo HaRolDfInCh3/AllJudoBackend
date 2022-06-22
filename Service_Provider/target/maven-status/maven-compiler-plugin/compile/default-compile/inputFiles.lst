@@ -85,6 +85,7 @@ C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\contro
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\repositories\Pari_compositionRepository.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\LiensCategorieController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\mappers\Pari_compositionDtoToPari_composition.java
+C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\pojos\Annee.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\AbonnementDto.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\controllers\BannierebackgroundController.java
 C:\Users\user\files\Service_Provider\src\main\java\com\test\microservices\dto\EvequipeDto.java

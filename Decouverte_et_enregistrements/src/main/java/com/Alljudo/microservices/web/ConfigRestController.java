@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RefreshScope
 @RestController
 public class ConfigRestController {
-	
+	@Value("${ipmachine}")
+	private String ipmachine;
 	@Value("${yParam}")
 	private int yParam;
 	@Value("${xParam}")
@@ -21,10 +22,12 @@ public class ConfigRestController {
 	@GetMapping(path="/showConfig")
 	public Map<String,Object> showConfig(){
 		Map<String,Object> params=new HashMap<>();
-		params.put("lien", lien);
+		params.put("eureka.client.serviceUrl.defaultZone", lien);
 		params.put("yParam", yParam);
 		params.put("xParam", xParam);
+		params.put("ipmachine", ipmachine);
 		params.put("threadName", Thread.currentThread().getName());
+		
 		return params;
 		
 	}

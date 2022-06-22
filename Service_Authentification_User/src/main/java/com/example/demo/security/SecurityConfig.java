@@ -56,7 +56,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+		CorsConfiguration corsConfig = new CorsConfiguration().applyPermitDefaultValues();
+		corsConfig.addAllowedMethod(HttpMethod.DELETE);
+		corsConfig.addAllowedMethod(HttpMethod.PUT);
+		http.cors().configurationSource(request -> corsConfig);
+		//http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
 		//http.formLogin();//activer un formulaire d'authentifcation seulement pour statefull
 		//http.authorizeRequests().anyRequest().permitAll();//aucune requette ne necessite une authentification prealable
 		//je ne peux pas envoyer de requette post 
@@ -64,7 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.headers().frameOptions().disable(); //desactiver la protection contre les frames pour un site qui les utilise
 		http.authorizeRequests().antMatchers("/refreshToken/**").permitAll();
-		http.authorizeRequests().antMatchers("/addUser/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.PUT,"/updateUser/**").permitAll();
 		//http.authorizeRequests().antMatchers(HttpMethod.POST,"/users/**").hasAnyAuthority("Super_Admin");
 		http.authorizeRequests().antMatchers(HttpMethod.GET,"/**").permitAll().anyRequest().authenticated();
 //toutes les requettes necessitent une authentifiation

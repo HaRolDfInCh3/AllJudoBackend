@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.test.microservices.dto.EvenementDto;
 import com.test.microservices.mappers.EvenementDtoToEvenement;
+import com.test.microservices.pojos.Annee;
 import com.test.microservices.pojos.Evenement;
 import com.test.microservices.repositories.EvenementRepository;
 @RestController
@@ -64,6 +65,11 @@ public ResponseEntity<List<EvenementDto>> getNextEvenement( ) {
 	
 	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getAllEventsYears")
+public ResponseEntity<List<Annee>> getAllEventsYears( ) {
+	List<Annee> lab =objetRepo.getAllYears();
+	return new ResponseEntity<List<Annee>>(lab,HttpStatus.OK);
 }
 @GetMapping("/getNextEvenementsDesc")
 public ResponseEntity<List<EvenementDto>> getNextEvenementDesc( ) {

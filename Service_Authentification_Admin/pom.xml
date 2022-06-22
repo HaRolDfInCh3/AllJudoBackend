@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>Service_Authentification_Admin</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>service_authentification_admin</artifactId>
+	<version>0.0.1</version>
 	<name>Service_Authentification_Admin</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -91,6 +91,11 @@
 		    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		    <version>3.1.1</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.spotify</groupId>
+		    <artifactId>dockerfile-maven-extension</artifactId>
+		    <version>1.4.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -99,6 +104,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		     <groupId>com.spotify</groupId>
+  		     <artifactId>dockerfile-maven-plugin</artifactId>
+  			 <version>1.4.13</version>
+		      
+             <executions>
+                 <execution>
+                     <id>default</id>
+                     <goals>
+                         <goal>build</goal>
+                         <goal>push</goal>
+                     </goals>
+                 </execution>
+             </executions>
+             <configuration>
+             <serverId>docker-hub</serverId>
+             <repository>ayrtongonsallo/${project.artifactId}</repository>
+             <tag>${project.version}</tag>
+             <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+             </configuration>
+    		</plugin>
 		</plugins>
 	</build>
 

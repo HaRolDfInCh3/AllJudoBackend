@@ -62,6 +62,47 @@ public ResponseEntity<EvenementDto> getEvenement( @PathVariable int id) {
 	}
 	return new ResponseEntity<EvenementDto>(HttpStatus.NOT_FOUND);
 }
+@GetMapping("/getResultatsAnciens/{annee}")
+public ResponseEntity<List<EvenementDto>> getResultatsAnciens(@PathVariable int annee ) throws ParseException {
+	String date="01/01/"+String.valueOf(annee);  
+	SimpleDateFormat pattern=new SimpleDateFormat("dd/MM/yyyy");
+    Date date1=pattern.parse(date);
+	Page<Evenement> lab=objetRepo.findResultatsAnciens(date1,PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "ID")));
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab.getContent());
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getEventsByMotCle_In_Categorie_Age_Nom/{motcle}")
+public ResponseEntity<List<EvenementDto>> findEvents_ByCategorie_ByAge_ByNom(@PathVariable String motcle ) {
+	List<Evenement> lab=objetRepo.getEventsByMotCle_In_Categorie_Age_Nom(motcle);
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/findEvents_ByCategorie_ByAge_ByDate/{cat}/{age}/{annee}")
+public ResponseEntity<List<EvenementDto>> findEvents_ByCategorie_ByAge_ByDate(@PathVariable int cat,@PathVariable int age,@PathVariable String annee ) throws ParseException {
+	String date_deb="01/01/"+annee;  
+	SimpleDateFormat pattern=new SimpleDateFormat("dd/MM/yyyy");
+    Date date=pattern.parse(date_deb); 
+    String date_deb1="01/01/"+(Integer.valueOf(annee)+1);  
+    Date dateplusun=pattern.parse(date_deb1); 
+    //System.out.println("date: "+pattern.format(date));
+    //System.out.println("date plus un: "+pattern.format(dateplusun));
+	List<Evenement> lab=objetRepo.findEvents_ByCategorie_Or_Age_Or_Date(cat, age, date,dateplusun);
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/findEventsByCategorieAndAgeAndDate/{cat}/{age}/{annee}")
+public ResponseEntity<List<EvenementDto>> findEventsByCategorieAndAgeAndDate(@PathVariable int cat,@PathVariable int age,@PathVariable String annee ) throws ParseException {
+	String date_deb="01/01/"+annee;  
+	SimpleDateFormat pattern=new SimpleDateFormat("dd/MM/yyyy");
+    Date date=pattern.parse(date_deb); 
+    String date_deb1="01/01/"+(Integer.valueOf(annee)+1);  
+    Date dateplusun=pattern.parse(date_deb1); 
+    //System.out.println("date: "+pattern.format(date));
+    //System.out.println("date plus un: "+pattern.format(dateplusun));
+	List<Evenement> lab=objetRepo.findEventsByCategorieAndAgeAndDate(cat, age, date,dateplusun);
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
 @GetMapping("/getNextEventsByCategorieAndAge/{age_id}/{cat_id}/{mois}/{annee}")
 public ResponseEntity<List<EvenementDto>> getNextEventsByCategorieAndAge( @PathVariable int age_id,@PathVariable int cat_id,@PathVariable int mois,@PathVariable int annee) throws ParseException {
 	String date_deb="01/"+(mois+1)+"/"+annee;  
@@ -107,6 +148,12 @@ public ResponseEntity<List<EvenementDto>> getEvenement( ) {
 @GetMapping("/getAllEvenementsDesc")
 public ResponseEntity<List<EvenementDto>> getEvenementDesc( ) {
 	List<Evenement> lab=objetRepo.findAll(Sort.by(Sort.Direction.DESC, "ID"));
+	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getAllEvenementsByDateDesc")
+public ResponseEntity<List<EvenementDto>> getEvenementByDateDesc( ) {
+	List<Evenement> lab=objetRepo.findAll(Sort.by(Sort.Direction.DESC, "DateDebut"));
 	List<EvenementDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<EvenementDto>>(ldto,HttpStatus.OK);
 }

@@ -47,6 +47,18 @@ public ResponseEntity<VideoDto> getVideo( @PathVariable int id) {
 	}
 	return new ResponseEntity<VideoDto>(HttpStatus.NOT_FOUND);
 }
+@GetMapping("/getVideosbyChampionID/{id}")
+public ResponseEntity<List<VideoDto>> getVideosbyChampionID( @PathVariable int id) {
+	List<Video> lab=videoRepo.getVideosbyChampionID(id,Sort.by(Sort.Direction.DESC, "ID"));
+	List <VideoDto>ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<VideoDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getVideosbyEvenementID/{id}")
+public ResponseEntity<List<VideoDto>> getVideosbyEvenementID( @PathVariable int id) {
+	List<Video> lab=videoRepo.getVideosbyEvenementID(id,Sort.by(Sort.Direction.DESC, "ID"));
+	List <VideoDto>ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<VideoDto>>(ldto,HttpStatus.OK);
+}
 @GetMapping("/getAllVideos")
 public ResponseEntity<List<VideoDto>> getVideo( ) {
 	List<Video> lab=videoRepo.findAll(Sort.by(Sort.Direction.DESC, "ID"));

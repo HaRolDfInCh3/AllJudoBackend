@@ -31,7 +31,6 @@ public class Champion {
 	private Grade grade2;
 	@DocumentReference
 	private Club club2;
-	@DocumentReference
 	private Pays pays2;
 	@DocumentReference
 	private Pays nvpays2;

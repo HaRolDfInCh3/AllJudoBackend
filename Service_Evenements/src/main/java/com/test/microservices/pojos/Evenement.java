@@ -38,11 +38,8 @@ public class Evenement {
 	public String PaysID;
 	public int CategorieID;
 	public int CategorieageID;
-	@DocumentReference
 	private Evcategorieage evcategorieage2;
-	@DocumentReference
 	private Evcategorieevenement evcategorieevenement2;
-	@DocumentReference
 	private Pays pays2;
 	public int compteur;
 }

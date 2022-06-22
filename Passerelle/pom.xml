@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Alljudo</groupId>
-	<artifactId>microservices</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>service_passerelle</artifactId>
+	<version>0.0.1</version>
 	<name>Passerelle</name>
 	<description>service de passerelle</description>
 	<properties>
@@ -32,6 +32,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>com.spotify</groupId>
+		    <artifactId>dockerfile-maven-extension</artifactId>
+		    <version>1.4.13</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -51,6 +56,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		     <groupId>com.spotify</groupId>
+  		     <artifactId>dockerfile-maven-plugin</artifactId>
+  			 <version>1.4.13</version>
+		      
+             <executions>
+                 <execution>
+                     <id>default</id>
+                     <goals>
+                         <goal>build</goal>
+                         <goal>push</goal>
+                     </goals>
+                 </execution>
+             </executions>
+             <configuration>
+             <serverId>docker-hub</serverId>
+             <repository>ayrtongonsallo/${project.artifactId}</repository>
+             <tag>${project.version}</tag>
+             <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+             </configuration>
+    		</plugin>
 		</plugins>
 	</build>
 

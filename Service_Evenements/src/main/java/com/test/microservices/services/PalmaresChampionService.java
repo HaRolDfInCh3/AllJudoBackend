@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.test.microservices.pojos.Classement_Clubs;
+import com.test.microservices.pojos.Classement_Pays;
+import com.test.microservices.pojos.GroupementResultatPays;
 import com.test.microservices.pojos.Palmares;
 import com.test.microservices.repositories.EvresultatRepository;
 @Service
@@ -13,8 +16,8 @@ public class PalmaresChampionService {
 		this.eRepo = eRepo;
 	}
 	EvresultatRepository eRepo;
-	public List<Palmares> getResults() {
-		return this.eRepo.aggregateBySample();
+	public List<Classement_Pays> getResults() {
+		return this.eRepo.getClassementPaysParEvenementID(6017);
 		
 	}
 	

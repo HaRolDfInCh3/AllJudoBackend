@@ -23,4 +23,8 @@ public interface VideoRepository extends MongoRepository<Video, String> {
 	public List<Video>findByTitreOrCategorie(String motcle,String categorie,Sort s);
 	@Query("{$and:[{Titre:{$regex:'?0'}},{Categorie:'?1'}]}")
 	public List<Video>findByTitreAndCategorie(String motcle,String categorie,Sort s);
+	@Query("{Evenement_id:?0}")
+	public List<Video>getVideosbyEvenementID(int id,Sort s);
+	@Query("{Champion_id:?0}")
+	public List<Video>getVideosbyChampionID(int id,Sort s);
 }

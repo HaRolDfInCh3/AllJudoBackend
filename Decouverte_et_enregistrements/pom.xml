@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.Alljudo</groupId>
-	<artifactId>microservices</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>decouverte_et_enregistrements</artifactId>
+	<version>0.0.2</version>
 	<name>Decouverte_et_enregistrements</name>
-	<description>gestionnaire de configurations</description>
+	<description>decouverte et enregistrements</description>
 	<properties>
 		<java.version>1.8</java.version>
 		<spring-cloud.version>2021.0.1</spring-cloud.version>
@@ -39,6 +39,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		    <groupId>com.spotify</groupId>
+		    <artifactId>dockerfile-maven-extension</artifactId>
+		    <version>1.4.13</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
@@ -58,6 +63,27 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+		     <groupId>com.spotify</groupId>
+  		     <artifactId>dockerfile-maven-plugin</artifactId>
+  			 <version>1.4.13</version>
+		      
+             <executions>
+                 <execution>
+                     <id>default</id>
+                     <goals>
+                         <goal>build</goal>
+                         <goal>push</goal>
+                     </goals>
+                 </execution>
+             </executions>
+             <configuration>
+             <serverId>docker-hub</serverId>
+             <repository>ayrtongonsallo/${project.artifactId}</repository>
+             <tag>${project.version}</tag>
+             <useMavenSettingsForAuth>true</useMavenSettingsForAuth>
+             </configuration>
+    		</plugin>
 		</plugins>
 	</build>
 

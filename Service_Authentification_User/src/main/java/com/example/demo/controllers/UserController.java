@@ -111,14 +111,20 @@ public ResponseEntity<UserDto> addUser(@RequestBody UserDto dto) {
 		return new ResponseEntity<UserDto>(dto,HttpStatus.CREATED);
 	
 }
-@PutMapping("/updateUser/{id}")
-public ResponseEntity<UserDto> updateUser(@PathVariable int id,@RequestBody UserDto dto) {
+@PutMapping("/updateUser/{id}/{motdepassechange}")
+public ResponseEntity<UserDto> updateUser(@PathVariable boolean motdepassechange,@PathVariable int id,@RequestBody UserDto dto) {
 	String idMongo=userRepo.findById(id).getIdMongo();
+	User ancient=userRepo.findByIdMongo(idMongo);
 		User ab=mapper.dtoToObject(dto);
 		if(paysRepo.existsByAbreviation(ab.getPays())) {
 			Pays p=paysRepo.findByAbreviation(ab.getPays());
 			ab.setPays2(p);
 		}
+		if(motdepassechange) {
+			String motdepasse=ab.getPassword();
+			 ab.setPassword(pe.encode(motdepasse));
+		}
+		ab.setRoles(ancient.getRoles());
 		userRepo.deleteById(idMongo);
 		ab.setIdMongo(idMongo);
 		

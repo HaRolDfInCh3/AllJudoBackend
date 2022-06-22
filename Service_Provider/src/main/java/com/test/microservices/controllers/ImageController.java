@@ -52,6 +52,20 @@ public ResponseEntity<List<ImageDto>> getImage( ) {
 	List<ImageDto> ldto=mapper.objectsToDtos(lab);
 	return new ResponseEntity<List<ImageDto>>(ldto,HttpStatus.OK);
 }
+@GetMapping("/getAllImageByChampionId/{id}")
+public ResponseEntity<List<ImageDto>> getAllImageByChampionId( @PathVariable int id ) {
+	System.out.println("images par id ascendant");
+	List<Image> lab=objetRepo.getAllImageByChampion_id(id,Sort.by(Sort.Direction.ASC, "ID"));
+	List<ImageDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<ImageDto>>(ldto,HttpStatus.OK);
+}
+@GetMapping("/getAllImageByEvenementID/{id}")
+public ResponseEntity<List<ImageDto>> getAllImageByEvenementID( @PathVariable int id ) {
+	System.out.println("images par id ascendant");
+	List<Image> lab=objetRepo.getAllImageByEvenement_id(id,Sort.by(Sort.Direction.ASC, "ID"));
+	List<ImageDto> ldto=mapper.objectsToDtos(lab);
+	return new ResponseEntity<List<ImageDto>>(ldto,HttpStatus.OK);
+}
 @GetMapping("/getAllImagesDesc")
 public ResponseEntity<List<ImageDto>> getImageDesc( ) {
 	System.out.println("images par date descendante");
